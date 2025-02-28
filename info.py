@@ -1,6 +1,6 @@
 API_ID       = "22207976"
 API_HASH     = "5c0ad7c48a86afac87630ba28b42560d"
-BOT_TOKEN    = "6863575303:AAHxr_BoTljbkzi4xwVJJKQkGuMudHc1ijM"
+BOT_TOKEN    = "6863575303:AAHRRo7J7XoTXfc1I98iXZp-Cge-TBIK6wA"
 SESSION      = "BQG_NJ0AhRPkii0DYp0nmp6iq5axNQiWiBpCx_1qXujSqrQgLFTw3A_ykNq4FriS2h_rAplZi2-IfZBNBktgv0JGEjdsbdenkWF33VoL6Uux0pyWUz56SUo5OkK6P3HzxZPxj-ZFoHCIkEPnpVYJEPRna7MAA_-QSxj3v_-QU7Y09NU5C64pQybwmUAc1o8GDCKazgo-oELOlq7zyDIIloExTw3pwrd33vToQKbemWMqta17Lj-itw2iA-njXbyj7-1wPRsU-R3FYsHTGUkatFaLE1avWySd3vW4QhEvmUw1vOSEJFtI5ICe-dZE4SwRz4v_5sTIQhCZhSr7W04J3zGrufaBIgAAAAFVDeYoAA"
 DATABASE_URI = "mongodb+srv://Devensh:Devensh@cluster0.pe664.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
 LOG_CHANNEL  = "-1001942398843"
