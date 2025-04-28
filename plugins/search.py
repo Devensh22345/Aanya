@@ -45,7 +45,7 @@ async def search(bot, message):
 
         print(f"Best match score: {best_score}")
 
-        if best_match and best_score >= 40:  # If score is decent (even if not perfect)
+        if best_match and best_score >= 1:  # If score is decent (even if not perfect)
             try:
                 copied = await bot.copy_message(
                     chat_id=message.chat.id,
@@ -57,9 +57,7 @@ async def search(bot, message):
                 print(f"Error sending copied message to group: {e}")
         else:
             print("No match found")
-            # Optionally send a message to the group, if you want to notify users
-            await message.reply_text("No related post found. Please try again with different words.")
-
+            
     except Exception as e:
         print(f"Error in search function: {e}")
 
