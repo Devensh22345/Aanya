@@ -27,19 +27,30 @@ async def search(bot, message):
         best_match = None
         best_score = 0
 
+        print(f"Searching for query: {query}")  # Debugging: Log the user's query
+
         for channel in channels:
             async for msg in User.search_messages(chat_id=channel, query=query):
                 if not msg.text:
                     continue
                 title = msg.text.lower()
+                
+                # Debugging: Log each comparison
+                print(f"Comparing query: {query} with message: {title}")
+
                 # Use token_sort_ratio for better handling of typos and word order variations
                 score = fuzz.token_sort_ratio(query, title)
+
+                print(f"Score: {score} for query: {query} vs. title: {title}")  # Debugging: Log score
 
                 if score > best_score:
                     best_score = score
                     best_match = msg
 
             # Keep searching all channels to find the absolute best match
+
+        # Debugging: Check the final match score
+        print(f"Best match score: {best_score}")
 
         if best_match and best_score >= 40:  # If score is decent (even if not perfect)
             copied = await bot.copy_message(
