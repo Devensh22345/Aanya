@@ -5,7 +5,7 @@ from time import time
 from client import User
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-from rapidfuzz import fuzz  # fuzzy matching library
+from rapidfuzz import fuzz
 
 @Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
 async def search(bot, message):
@@ -31,16 +31,16 @@ async def search(bot, message):
                 if not msg.text:
                     continue
                 title = msg.text.lower()
-                score = fuzz.partial_ratio(query, title)  # compare user query and message title
+                score = fuzz.partial_ratio(query, title)
 
                 if score > best_score:
                     best_score = score
                     best_match = msg
 
-                if best_score >= 90:
-                    break  # if perfect match found, no need to continue
+                if best_score >= 80:  # not too strict
+                    break
 
-            if best_score >= 90:
+            if best_score >= 80:
                 break
 
         if best_match:
@@ -51,7 +51,7 @@ async def search(bot, message):
             )
             asyncio.create_task(delete_after_delay(bot, message.chat.id, copied.id))
         else:
-            pass  # do nothing if no match found
+            pass  # no match found, no reply
 
     except Exception as e:
         print(f"Error in search function: {e}")
