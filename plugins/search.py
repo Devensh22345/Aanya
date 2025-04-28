@@ -3,7 +3,6 @@ from info import *
 from utils import *
 from client import User
 from pyrogram import Client, filters
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from rapidfuzz import fuzz
 
 @Client.on_message(filters.text & filters.group & filters.incoming & ~filters.command(["verify", "connect", "id"]))
@@ -32,7 +31,9 @@ async def search(bot, message):
                 if not msg.text:
                     continue
                 title = msg.text.lower()
-                score = fuzz.partial_ratio(query, title)
+                
+                # Use token_sort_ratio to handle word order and minor typos
+                score = fuzz.token_sort_ratio(query, title)
 
                 if score > best_score:
                     best_score = score
@@ -48,15 +49,14 @@ async def search(bot, message):
             )
             asyncio.create_task(delete_after_delay(bot, message.chat.id, copied.message_id))
         else:
-            # Optional: Send a "Not Found" message
-            await message.reply_text("No related post found. Please try again with different words.")
+            pass  # Do nothing if no match found
 
     except Exception as e:
         print(f"Error in search function: {e}")
 
 async def delete_after_delay(bot, chat_id, message_id):
     try:
-        await asyncio.sleep(600)
+        await asyncio.sleep(600)  # Delay before deleting message (10 minutes)
         await bot.delete_messages(chat_id, message_id)
     except Exception as e:
         print(f"Failed to delete message: {e}")
