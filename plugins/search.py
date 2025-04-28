@@ -35,11 +35,17 @@ async def search(bot, message):
                 # Use token_sort_ratio to handle word order and minor typos
                 score = fuzz.token_sort_ratio(query, title)
 
+                print(f"Comparing query: {query}")
+                print(f"With message: {title}")
+                print(f"Score: {score}")
+
                 if score > best_score:
                     best_score = score
                     best_match = msg
 
             # Keep searching all channels to find the absolute best match
+
+        print(f"Best match score: {best_score}")
 
         if best_match and best_score >= 40:  # If score is decent (even if not perfect)
             copied = await bot.copy_message(
@@ -49,7 +55,7 @@ async def search(bot, message):
             )
             asyncio.create_task(delete_after_delay(bot, message.chat.id, copied.message_id))
         else:
-            pass  # Do nothing if no match found
+            print("No match found")
 
     except Exception as e:
         print(f"Error in search function: {e}")
