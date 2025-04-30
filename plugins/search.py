@@ -10,8 +10,7 @@ from rapidfuzz import fuzz
 # Common useless words to ignore (Hindi + English)
 STOP_WORDS = [
     "i", "want", "need", "please", "give", "send", "in", "with", "to", "me", "search", "find", "download", "full",
-    "line", "movie", "series", "episode", "english", "hindi", "audio", "dubbed", "ka", "ki", "mein", "me", "kaise",
-    "mujhe", "chahiye", "karo", "bhai", "bhejo", "bhijwa", "krdo", "kr", "mai", "kar", "send", "any", "link", "ke", "wo", "jo"
+    "line", "movie", "series", "episode", "below", "open", "english", "hindi", "audio", "dubbed", "ka", "ki", "mein", "me", "kaise", "bot", "click", "mujhe", "chahiye", "karo", "bhai", "bhejo", "bhijwa", "krdo", "kr", "mai", "kar", "send", "any", "link", "ke", "wo", "jo"
 ]
 
 def clean_query(text):
