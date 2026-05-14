@@ -56,6 +56,41 @@ async def _verify(bot, message):
     await message.reply("Verification Request sent ✅\nWe will notify You Personally when it is approved")
 
 
+@Client.on_message(filters.command("dverify") & filters.private)
+async def dverify(bot, message):
+    # Check if user is authorized (you can customize this check)
+    if message.from_user.id not in ADMINS:  # Assuming ADMINS is defined in info.py
+        return await message.reply("❌ You are not authorized to use this command!")
+    
+    # Check if group ID is provided
+    if len(message.command) < 2:
+        return await message.reply("❌ Usage: /dverify <group_id>")
+    
+    try:
+        group_id = int(message.command[1])
+    except ValueError:
+        return await message.reply("❌ Invalid group ID! Please provide a valid integer.")
+    
+    try:
+        group = await get_group(group_id)
+    except:
+        return await message.reply(f"❌ No group found with ID: `{group_id}`")
+    
+    # Delete the group from database
+    await delete_group(group_id)
+    
+    # Notify the group owner
+    try:
+        await bot.send_message(
+            chat_id=group["user_id"],
+            text=f"⚠️ Your group **{group['name']}** has been removed from verified groups.\nPlease contact admin for more information."
+        )
+    except:
+        pass  # User might have blocked the bot
+    
+    await message.reply(f"✅ Group `{group_id}` has been successfully removed from verified groups!")
+
+
 @Client.on_callback_query(filters.regex(r"^verify"))
 async def verify_(bot, update):
     id = int(update.data.split("_")[-1])
