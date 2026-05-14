@@ -59,7 +59,7 @@ async def _verify(bot, message):
 @Client.on_message(filters.command("dverify") & filters.private)
 async def dverify(bot, message):
     # Check if user is authorized (you can customize this check)
-    if message.from_user.id not in ADMINS:  # Assuming ADMINS is defined in info.py
+    if message.from_user.id not in ADMIN:  # Assuming ADMINS is defined in info.py
         return await message.reply("❌ You are not authorized to use this command!")
     
     # Check if group ID is provided
